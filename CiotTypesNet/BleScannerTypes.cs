@@ -18,8 +18,8 @@ namespace Ciot
     [Flags]
     public enum BleScannerFlags : byte
     {
-        Active,
-        BridgeMode,
+        Active = 1 << 0,
+        BridgeMode = 1 << 1,
     }
 
     [StructLayout(LayoutKind.Sequential, Pack = 1)]

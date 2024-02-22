@@ -28,14 +28,15 @@ namespace Ciot
         Eth,
         Wifi,
         Ble,
+        _,
         BleScn,
-        Ntp = 127,
+        Ntp,
         Ota,
         HttpClient,
         HttpServer,
         MqttClient,
-        Custom = 254,
-        Bridge = 255
+        Custom,
+        Bridge
     }
 
     [StructLayout(LayoutKind.Sequential, Pack = 1)]
@@ -116,6 +117,7 @@ namespace Ciot
         public HttpClientDataU? HttpClient;
         public HttpServerDataU? HttpServer;
         public MqttClientDataU? MqttClient;
+        public BridgeDataU? Bridge;
         public byte[] Payload;
         public MsgError Error;
 
@@ -182,7 +184,7 @@ namespace Ciot
                     Payload = data;
                     break;
                 case IfaceType.Bridge:
-                    // TODO: implement bridge data
+                    Bridge = new BridgeDataU(data);
                     break;
             }
         }
