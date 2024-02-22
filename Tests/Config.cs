@@ -8,6 +8,6 @@ namespace Tests
 {
     public static class Config
     {
-        public const string DatFilesPath = "E:\\Projetos\\ciot-platform\\ciot_types_c\\build\\";
+        public const string DatFilesPath = "E:\\Projetos\\ciot-platform\\ciot_types_c\\data\\";
     }
 }
