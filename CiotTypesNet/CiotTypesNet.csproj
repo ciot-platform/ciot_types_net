@@ -6,4 +6,8 @@
     <RootNamespace>Ciot</RootNamespace>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\CiotSerializer\CiotSerializer.csproj" />
+  </ItemGroup>
+
 </Project>

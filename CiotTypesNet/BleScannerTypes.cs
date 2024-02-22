@@ -1,5 +1,5 @@
-﻿using System;
-using System.Runtime.InteropServices;
+﻿using CiotSerializer;
+using System;
 
 namespace Ciot
 {
@@ -16,54 +16,46 @@ namespace Ciot
     }
 
     [Flags]
-    public enum BleScannerFlags : byte
+    public enum BleScannerCfgFlags : byte
     {
         Active = 1 << 0,
         BridgeMode = 1 << 1,
     }
 
-    [StructLayout(LayoutKind.Sequential, Pack = 1)]
-    public struct BleScannerCfg
+    public class BleScannerCfg
     {
-        public ushort interval;
-        public ushort window;
-        public ushort timeout;
-        public BleScannerFlags flags;
+        public ushort Interval { get; set; }
+        public ushort Window { get; set; }
+        public ushort Timeout { get; set; }
+        public BleScannerCfgFlags Flags { get; set; }
     }
 
-    [StructLayout(LayoutKind.Sequential, Pack = 1)]
-    public struct BleScannerAdvInfo
+    public class BleScannerAdvInfo
     {
-        [MarshalAs(UnmanagedType.ByValArray, SizeConst = 6)]
-        public byte[] mac;
-        public sbyte rssi;
-    }
+        [Size(6)]
+        public byte[] Mac { get; set; }
+        public sbyte Rssi { get; set; }
 
-    [StructLayout(LayoutKind.Sequential, Pack = 1)]
-    public struct BleScannerStatus
-    {
-        public BleScannerState state;
-        public BleScannerAdvInfo advInfo;
-        public int errCode;
-    }
-
-    [StructLayout(LayoutKind.Explicit, Pack = 1)]
-    public struct BleScannerReqDataU
-    {
-
-    }
-
-    [StructLayout(LayoutKind.Sequential, Pack = 1)]
-    public struct BleScannerReq
-    {
-        public BleScannerReqType type;
-        public BleScannerReqDataU data;
-    }
-
-    public class BleScannerDataU : MsgDataUnion<BleScannerCfg, BleScannerStatus, BleScannerReqDataU>
-    {
-        public BleScannerDataU(byte[] data) : base(data)
+        public BleScannerAdvInfo() 
         {
+            Mac = new byte[6];
         }
+    }
+
+    public class BleScannerStatus 
+    {
+        public BleScannerState State { get; set; }
+        public BleScannerAdvInfo AdvInfo { get; set;}
+        public int ErrCode { get; set;}
+
+        public BleScannerStatus()
+        {
+            AdvInfo = new BleScannerAdvInfo();
+        }
+    }
+
+    public class BleScannerReq
+    {
+        public BleScannerReqType Type { get; set; }
     }
 }

@@ -1,53 +1,37 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using System.Runtime.InteropServices;
+﻿using CiotSerializer;
 
 namespace Ciot
 {
-
     public enum BridgeState : byte
     {
         Idle,
         Started,
         Error
     }
-
+    
     public enum BridgeReqType : byte
     {
-        Unknown
+        Unknown,
     }
 
-    [StructLayout(LayoutKind.Sequential, Pack = 1)]
-    public struct BridgeCfg
+    public class BridgeCfg
     {
-        [MarshalAs(UnmanagedType.ByValArray, SizeConst = 2)]
-        public byte[] ifacesId;
-    }
+        [Size(2)]
+        public byte[] Interfaces { get; set; }
 
-    [StructLayout(LayoutKind.Sequential, Pack = 1)]
-    public struct BridgeStatus
-    {
-        public BridgeState state;
-    }
-
-    [StructLayout(LayoutKind.Sequential, Pack = 1)]
-    public struct BridgeReqDataU
-    {
-        // Empty
-    }
-
-    [StructLayout(LayoutKind.Sequential, Pack = 1)]
-    public struct BridgeReq
-    {
-        public BridgeReqType type;
-        public BridgeReqDataU data;
-    }
-
-    public class BridgeDataU : MsgDataUnion<BridgeCfg, BridgeStatus, BridgeReq>
-    {
-        public BridgeDataU(byte[] data) : base(data)
+        public BridgeCfg()
         {
+            Interfaces = new byte[2];
         }
+    }
+
+    public class BridgeStatus 
+    {
+        public BridgeState State { get; set; }
+    }
+
+    public class BridgeReq
+    {
+        public BridgeReqType Type { get; set; }
     }
 }
